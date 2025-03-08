@@ -22,35 +22,48 @@ export default function App() {
     useEffect(() => { fetchChannels(); }, []);
 
     return (
-        <div className="container">
-            <h1>لوحة تحكم البث</h1>
+        <div style={{ padding: '20px' }}>
+            <h1>إدارة القنوات</h1>
             
-            <form onSubmit={addChannel}>
+            <form onSubmit={addChannel} style={{ marginBottom: '20px' }}>
                 <input
                     placeholder="اسم القناة"
                     value={form.name}
-                    onChange={e => setForm({...form, name: e.target.value})}
+                    onChange={e => setForm({...form, name: e.target.value}) 
+                    style={{ marginRight: '10px', padding: '8px' }}
                 />
                 
                 <input
-                    placeholder="رابط HLS الأصلي"
+                    placeholder="رابط البث الأصلي"
                     value={form.url}
-                    onChange={e => setForm({...form, url: e.target.value})}
+                    onChange={e => setForm({...form, url: e.target.value}) 
+                    style={{ marginRight: '10px', padding: '8px', width: '300px' }}
                 />
                 
-                <button type="submit">إضافة قناة</button>
+                <button 
+                    type="submit"
+                    style={{ padding: '8px 15px', backgroundColor: '#4CAF50', color: 'white', border: 'none' }}
+                >
+                    إضافة
+                </button>
             </form>
 
-            <div className="channels-list">
+            <div>
                 {channels.map((channel, index) => (
-                    <div key={index} className="channel-item">
+                    <div key={index} style={{ 
+                        padding: '10px', 
+                        marginBottom: '10px', 
+                        border: '1px solid #ddd',
+                        borderRadius: '5px'
+                    }}>
                         <h3>{channel.name}</h3>
                         <a
                             href={`/hls/${new URL(channel.url).hostname}${new URL(channel.url).pathname}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            style={{ color: '#2196F3' }}
                         >
-                            رابط البث عبر البروكسي
+                            رابط البروكسي
                         </a>
                     </div>
                 ))}
