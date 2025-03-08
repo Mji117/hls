@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  hls-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - hls_cache:/var/cache/nginx
+
+  admin-panel:
+    build:
+      context: ./admin-panel
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  hls_cache:
